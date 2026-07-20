@@ -371,6 +371,11 @@
                 <div class="section-header">
                     <h2 class="section-title" data-i18n="dl_title">Download ROCKos</h2>
                     <p class="section-description" data-i18n="dl_desc">Select the appropriate architecture for your device and start downloading for free. ISO files are hosted and downloaded directly from Google Drive.</p>
+                    <div style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; background: light-dark(#f1f5f9, #0e1422); padding: 0.4rem 1.1rem; border-radius: 30px; border: 1px solid var(--border-color); font-size: 0.88rem; font-weight: 600; color: var(--accent);">
+                        <span>🔥</span>
+                        <span data-i18n="dl_total_counter">Total ISO Downloads:</span>
+                        <strong id="total-download-count" style="color: var(--text-primary); font-size: 1rem;">404+</strong>
+                    </div>
                 </div>
 
                 <!-- Standard Edition Header -->
@@ -392,7 +397,7 @@
                             <li><strong data-i18n="dl_base">Base:</strong> Ubuntu LTS</li>
                         </ul>
                         
-                        <a href="https://drive.google.com/file/d/1S5uDkYMIZ9sbo6XbPkaaAWAAToSmMHqS/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+                        <a href="/api/download?file=x64" target="_blank" rel="noopener" class="btn btn-primary btn-block">
                             <span data-i18n="dl_btn_x64">Download from Google Drive (x64)</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
@@ -413,7 +418,7 @@
                             <li><strong data-i18n="dl_base">Base:</strong> Debian</li>
                         </ul>
                         
-                        <a href="https://drive.google.com/file/d/1_zgDGZuDH_RRc556Eu0OIUA7BIYg3499/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+                        <a href="/api/download?file=arm64" target="_blank" rel="noopener" class="btn btn-primary btn-block">
                             <span data-i18n="dl_btn_arm64">Download from Google Drive (ARM64)</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
@@ -443,7 +448,7 @@
                             <li><strong data-i18n="dl_base">Base:</strong> Ubuntu LTS</li>
                         </ul>
                         
-                        <a href="https://drive.google.com/file/d/1BSq5fCGyd9PAO0jy5DqBIdsmZTdHaDVs/view?usp=drive_link" target="_blank" rel="noopener" class="btn btn-warning btn-block">
+                        <a href="/api/download?file=turbo_x64" target="_blank" rel="noopener" class="btn btn-warning btn-block">
                             <span data-i18n="dl_btn_turbo_x64">Download ROCKos Turbo (x64)</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -464,7 +469,7 @@
                             <li><strong data-i18n="dl_base">Base:</strong> Debian</li>
                         </ul>
                         
-                        <a href="https://drive.google.com/file/d/1e0n6xHX9R5UNwTZAvRtBue631SLbcpdF/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-warning btn-block">
+                        <a href="/api/download?file=turbo_arm64" target="_blank" rel="noopener" class="btn btn-warning btn-block">
                             <span data-i18n="dl_btn_turbo_arm64">Download ROCKos Turbo (ARM64)</span>
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
