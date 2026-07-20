@@ -1,0 +1,8 @@
+{
+  "version": "1.0_Turbo",
+  "codename": "Turbo",
+  "release_date": "2026-07-20",
+  "iso_url_amd64": "https://drive.google.com/file/d/1BSq5fCGyd9PAO0jy5DqBIdsmZTdHaDVs/view?usp=sharing",
+  "iso_url_arm64": "https://drive.google.com/file/d/1e0n6xHX9R5UNwTZAvRtBue631SLbcpdF/view?usp=sharing",
+  "changelog": "ROCKos Turbo Release"
+}
