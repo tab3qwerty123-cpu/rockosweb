@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROCKos - Next Generation Ubuntu & Debian-Based Operating System</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="ROCKos is a next-generation modern operating system based on Ubuntu and Debian, offering stability, speed, and dual-architecture (x64 & ARM64) support. Download and experience it today.">
+    <meta name="keywords" content="ROCKos, operating system, linux, ubuntu, debian, x64, arm64, utm, download iso, download linux, open source">
+    <meta name="author" content="ROCKos Team">
+    
+    <!-- Open Graph (Social Media Sharing) -->
+    <meta property="og:title" content="ROCKos - Next Generation Ubuntu & Debian-Based Operating System">
+    <meta property="og:description" content="Meet ROCKos, the next-generation Linux distribution with speed, stability, and dual-architecture support.">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:type" content="website">
+
+    <!-- Browser Theme & FOUC Prevention -->
+    <meta name="color-scheme" content="light dark">
+    <script>
+        {
+            const savedTheme = localStorage.getItem("color-scheme");
+            if (savedTheme === "light" || savedTheme === "dark") {
+                document.querySelector('meta[name="color-scheme"]').content = savedTheme;
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        }
+    </script>
+    <link rel="alternate" type="application/rss+xml" title="ROCKos Updates Feed" href="feed.xml">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Scripts & CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body>
+
+    <!-- 2-Tier Full-Width Header / Navigation -->
+    <header class="header">
+        <!-- Header Tier 1: Brand Logo, Actions, Auth & Controls -->
+        <div class="header-top">
+            <div class="container header-container-top">
+                <a href="index.html" class="logo-area" aria-label="ROCKos Home">
+                    <div class="logo-fallback-wrapper">
+                        <img src="logo.png" alt="ROCKos Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="logo-text-icon" style="display:none;">🪨</span>
+                    </div>
+                    <span class="logo-text">ROCK<span class="logo-accent">os</span></span>
+                </a>
+
+                <div class="header-actions">
+                    <!-- Language Toggle (TR / EN) -->
+                    <button id="lang-toggle" class="lang-toggle-btn" title="Switch Language / Dil Değiştir">
+                        <span class="lang-icon">🌐</span>
+                        <span id="lang-text" class="lang-text">TR</span>
+                    </button>
+
+                    <!-- RSS Button -->
+                    <a href="feed.xml" target="_blank" class="rss-link-btn" title="RSS Feed" aria-label="ROCKos RSS Updates Feed">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 11a9 9 0 0 1 9 9"></path>
+                            <path d="M4 4a16 16 0 0 1 16 16"></path>
+                            <circle cx="5" cy="19" r="1"></circle>
+                        </svg>
+                    </a>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="Light/Dark Theme">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Auth Area -->
+                    <div id="auth-buttons-area" class="auth-buttons-wrapper">
+                        <button id="btn-open-login" class="btn btn-secondary btn-sm" data-i18n="nav_login">Login</button>
+                        <button id="btn-open-register" class="btn btn-primary btn-sm" data-i18n="nav_register">Register</button>
+                    </div>
+
+                    <div id="user-profile-badge" class="user-badge-container" style="display:none;">
+                        <div class="user-info">
+                            <span id="user-badge-name" class="user-name">User</span>
+                            <span id="user-badge-level" class="user-level-tag">Lvl 1</span>
+                            <span id="user-badge-role" class="user-role-tag member">MEMBER</span>
+                        </div>
+                        <button id="btn-admin-panel" class="btn btn-warning btn-sm" style="display:none;" data-i18n="nav_admin_panel">Admin Panel</button>
+                        <button id="btn-logout" class="btn btn-secondary btn-sm" data-i18n="nav_logout">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Tier 2: Wide Navigation Bar -->
+        <div class="header-bottom">
+            <div class="container header-container-bottom">
+                <nav class="nav-menu" aria-label="Main Menu">
+                    <a href="#features" class="nav-link" data-i18n="nav_features">Features</a>
+                    <a href="#requirements" class="nav-link" data-i18n="nav_requirements">Requirements</a>
+                    <a href="#apps" class="nav-link" data-i18n="nav_apps">Apps</a>
+                    <a href="#download" class="nav-link" data-i18n="nav_download">Download</a>
+                    <a href="forum.html" class="nav-link nav-highlight" data-i18n="nav_forum">Forum & Community</a>
+                    <a href="https://rockosweb.vercel.app" target="_blank" rel="noopener" class="nav-link" data-i18n="nav_try_web">Try on Web</a>
+                    <a href="#open-source" class="nav-link" data-i18n="nav_open_source">Open Source</a>
+                    <a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
+                    <a href="#disclaimer" class="nav-link" data-i18n="nav_disclaimer">Disclaimer</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content-spaced">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge" data-i18n="hero_badge">Ubuntu & Debian-Based Operating System</div>
+                    <h1 class="hero-title"><span data-i18n="hero_title">Stable, Powerful, and Fast: </span><span class="text-glow">ROCKos</span></h1>
+                    <p class="hero-subtitle" data-i18n="hero_subtitle">Meet your new high-performance operating system, offered in Ubuntu LTS (x64) and Debian (ARM64) editions for optimal desktop and virtual machine performance.</p>
+                    
+                    <div class="hero-ctas">
+                        <a href="#download" class="btn btn-primary">
+                            <span data-i18n="hero_btn_download">Download Release</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                            </svg>
+                        </a>
+                        <a href="forum.html" class="btn btn-warning">
+                            <span data-i18n="nav_forum">Forum & Community</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </a>
+                        <a href="https://rockosweb.vercel.app" target="_blank" rel="noopener" class="btn btn-secondary">
+                            <span data-i18n="hero_btn_try_web">TRY ON WEB (Web Version)</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </a>
+                        <a href="#open-source" class="btn btn-secondary" data-i18n="hero_btn_source">Source Codes</a>
+                    </div>
+                </div>
+                
+                <!-- Desktop Interface Simulation / Interactive Tour -->
+                <div class="hero-preview">
+                    <div class="desktop-mockup">
+                        <div class="mockup-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <div class="mockup-tabs">
+                                <button class="mockup-tab-btn active" data-tab="desktop" data-i18n="tab_desktop">Desktop</button>
+                                <button class="mockup-tab-btn" data-tab="terminal" data-i18n="tab_terminal">Terminal</button>
+                                <button class="mockup-tab-btn" data-tab="files" data-i18n="tab_files">Files</button>
+                            </div>
+                        </div>
+                        <div class="mockup-body">
+                            <!-- Tab 1: Desktop View -->
+                            <div class="mockup-tab-content active" id="tab-desktop">
+                                <div class="desktop-overlay">
+                                    <div class="desktop-logo">
+                                        <img src="logo.png" alt="ROCKos Center Logo" class="desktop-logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <span class="desktop-logo-fallback" style="display:none; font-size: 2.5rem;">🪨</span>
+                                    </div>
+                                    <div class="desktop-bottom-bar">
+                                        <div class="bar-menu-icon">
+                                            <img src="logo.png" alt="Menu" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                                            <span class="menu-icon-fallback" style="display:none; font-size: 0.8rem;">🪨</span>
+                                        </div>
+                                        <div class="bar-app-icons">
+                                            <span class="app-icon terminal-icon-mock" title="Terminal"></span>
+                                            <span class="app-icon files-icon-mock" title="Files"></span>
+                                            <span class="app-icon browser-icon-mock" title="Browser"></span>
+                                        </div>
+                                        <div class="bar-status">
+                                            <span class="time">19:03</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab 2: Terminal View -->
+                            <div class="mockup-tab-content" id="tab-terminal">
+                                <div class="terminal-container">
+                                    <div class="terminal-input-line"><span class="prompt">rockos@system:~$</span> <span class="typed-text">neofetch</span></div>
+                                    <div class="terminal-output">
+                                        <p><span style="color:#38bdf8">OS:</span> ROCKos 1.2 (x64 / ARM64)</p>
+                                        <p><span style="color:#38bdf8">Kernel:</span> 6.8.0-generic</p>
+                                        <p><span style="color:#38bdf8">Base:</span> Ubuntu LTS &amp; Debian</p>
+                                        <p><span style="color:#38bdf8">Shell:</span> bash 5.2.21</p>
+                                        <p>rockos@system:~$ <span class="cursor">_</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tab 3: File Manager View -->
+                            <div class="mockup-tab-content" id="tab-files">
+                                <div class="files-container">
+                                    <div class="files-sidebar">
+                                        <div class="sidebar-item active">🏠 Home</div>
+                                        <div class="sidebar-item">📥 Downloads</div>
+                                        <div class="sidebar-item">📄 Documents</div>
+                                        <div class="sidebar-item">📁 Devices</div>
+                                    </div>
+                                    <div class="files-view">
+                                        <div class="file-item">
+                                            <span class="file-icon">📁</span>
+                                            <span class="file-name">ROCKos</span>
+                                        </div>
+                                        <div class="file-item">
+                                            <span class="file-icon">💾</span>
+                                            <span class="file-name">rockos-amd64.iso</span>
+                                        </div>
+                                        <div class="file-item">
+                                            <span class="file-icon">💾</span>
+                                            <span class="file-name">rockos-arm64.iso</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="features_title">Why ROCKos?</h2>
+                    <p class="section-description" data-i18n="features_desc">ROCKos has been developed to provide a stable and comfortable environment for everything from daily use to software development workflows.</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title" data-i18n="feature_1_title">Powered by Ubuntu & Debian</h3>
+                        <p class="feature-card-text" data-i18n="feature_1_desc">Get maximum compatibility and performance: x64 edition is built on Ubuntu LTS for rock-solid stability, while ARM64 edition is built on Debian for lightweight efficiency.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title" data-i18n="feature_2_title">High Security</h3>
+                        <p class="feature-card-text" data-i18n="feature_2_desc">Advanced Linux security infrastructure and regular updates protect your data and digital assets at the highest level on ROCKos.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title" data-i18n="feature_3_title">Performance Focused</h3>
+                        <p class="feature-card-text" data-i18n="feature_3_desc">With its lightweight structure stripped of unnecessary background services, it delivers high speed and smooth transitions even on low-spec hardware.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper">
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                <path d="M2 12h20"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-card-title" data-i18n="feature_4_title">Dual Architecture & Base</h3>
+                        <p class="feature-card-text" data-i18n="feature_4_desc">Two specialized editions: 64-bit (x64) built on Ubuntu LTS, and ARM64 built on Debian (optimized for ARM devices and virtual machines).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Requirements Section -->
+        <section id="requirements" class="requirements-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="req_title">System Requirements</h2>
+                    <p class="section-description" data-i18n="req_desc">Check if your hardware meets the specifications required to run ROCKos smoothly.</p>
+                </div>
+                <div class="requirements-grid">
+                    <div class="requirements-card">
+                        <h3 data-i18n="req_min_title">Minimum Specifications</h3>
+                        <ul class="specs-list">
+                            <li><strong data-i18n="req_cpu">Processor:</strong> <span data-i18n="req_min_cpu">1.5 GHz Dual-Core (64-bit or ARM64)</span></li>
+                            <li><strong data-i18n="req_ram">Memory (RAM):</strong> <span data-i18n="req_min_ram">2 GB System Memory</span></li>
+                            <li><strong data-i18n="req_storage">Storage:</strong> <span data-i18n="req_min_storage">15 GB available disk space</span></li>
+                            <li><strong data-i18n="req_gpu">Graphics:</strong> <span data-i18n="req_min_gpu">1024 x 768 screen resolution</span></li>
+                        </ul>
+                    </div>
+                    <div class="requirements-card recommended">
+                        <div class="rec-badge" data-i18n="req_recommended_badge">Recommended</div>
+                        <h3 data-i18n="req_rec_title">Recommended Specifications</h3>
+                        <ul class="specs-list">
+                            <li><strong data-i18n="req_cpu">Processor:</strong> <span data-i18n="req_rec_cpu">2.0 GHz Quad-Core or better</span></li>
+                            <li><strong data-i18n="req_ram">Memory (RAM):</strong> <span data-i18n="req_rec_ram">4 GB or more</span></li>
+                            <li><strong data-i18n="req_storage">Storage:</strong> <span data-i18n="req_rec_storage">25 GB SSD (Solid State Drive)</span></li>
+                            <li><strong data-i18n="req_gpu">Graphics:</strong> <span data-i18n="req_rec_gpu">1920 x 1080 resolution with hardware acceleration</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pre-installed Apps Section -->
+        <section id="apps" class="apps-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="apps_title">Pre-installed Applications</h2>
+                    <p class="section-description" data-i18n="apps_desc">ROCKos comes loaded with essential tools to get you started immediately without unnecessary clutter.</p>
+                </div>
+                <div class="apps-grid">
+                    <div class="app-showcase-card">
+                        <div class="app-icon-box terminal-theme">
+                            <span>&gt;_</span>
+                        </div>
+                        <h4 data-i18n="app_1_title">ROCKos Terminal</h4>
+                        <p data-i18n="app_1_desc">A customized terminal window configured with shell shortcuts and dynamic auto-completions for fast administration.</p>
+                    </div>
+                    <div class="app-showcase-card">
+                        <div class="app-icon-box browser-theme">
+                            <span>🌐</span>
+                        </div>
+                        <h4 data-i18n="app_2_title">Modern Browser</h4>
+                        <p data-i18n="app_2_desc">Lightweight, secure, and privacy-focused web browser pre-configured for modern standards and fast rendering.</p>
+                    </div>
+                    <div class="app-showcase-card">
+                        <div class="app-icon-box files-theme">
+                            <span>📂</span>
+                        </div>
+                        <h4 data-i18n="app_3_title">Advanced File Manager</h4>
+                        <p data-i18n="app_3_desc">Clean layout with dual-pane support, built-in archive extraction, and quick server mount configurations.</p>
+                    </div>
+                    <div class="app-showcase-card">
+                        <div class="app-icon-box ota-theme">
+                            <span>⚙️</span>
+                        </div>
+                        <h4 data-i18n="app_4_title">OTA Update Controller</h4>
+                        <p data-i18n="app_4_desc">Integrated update control manager for enabling or disabling background system updates on demand.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="download-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="dl_title">Download ROCKos</h2>
+                    <p class="section-description" data-i18n="dl_desc">Select the appropriate architecture for your device and start downloading for free. ISO files are hosted and downloaded directly from Google Drive.</p>
+                </div>
+
+                <div class="download-grid">
+                    <!-- x64 Release -->
+                    <div class="download-card">
+                        <div class="card-badge" data-i18n="dl_x64_badge">v1.2 | 64-Bit PC</div>
+                        <h3 class="download-card-title" data-i18n="dl_x64_title">ROCKos x64 v1.2</h3>
+                        <p class="download-card-desc" data-i18n="dl_x64_desc">Ideal ISO image for standard 64-bit laptops, desktops, and general-purpose virtual machines.</p>
+                        
+                        <ul class="download-details">
+                            <li><strong data-i18n="dl_file_name">File Name:</strong> rockos-amd64.iso</li>
+                            <li><strong data-i18n="dl_version">Version:</strong> v1.2</li>
+                            <li><strong data-i18n="dl_desktop_ui">Desktop:</strong> Customized Modern UI</li>
+                            <li><strong data-i18n="dl_base">Base:</strong> Ubuntu LTS</li>
+                        </ul>
+                        
+                        <a href="https://drive.google.com/file/d/1S5uDkYMIZ9sbo6XbPkaaAWAAToSmMHqS/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+                            <span data-i18n="dl_btn_x64">Download from Google Drive (x64)</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                            </svg>
+                        </a>
+                        <p class="download-hint"><span data-i18n="dl_hint_x64">Local download test link: </span><a href="rockos-amd64.iso" class="local-link">rockos-amd64.iso</a></p>
+                    </div>
+
+                    <!-- ARM64 Release -->
+                    <div class="download-card">
+                        <div class="card-badge" data-i18n="dl_arm64_badge">v1.2 | ARM64 Architecture</div>
+                        <h3 class="download-card-title" data-i18n="dl_arm64_title">ROCKos ARM64 v1.2</h3>
+                        <p class="download-card-desc" data-i18n="dl_arm64_desc">Optimized ISO image for ARM64-based devices (like Raspberry Pi), single-board computers, and virtual machines built on Debian.</p>
+                        
+                        <ul class="download-details">
+                            <li><strong data-i18n="dl_file_name">File Name:</strong> rockos-arm64.iso</li>
+                            <li><strong data-i18n="dl_version">Version:</strong> v1.2</li>
+                            <li><strong data-i18n="dl_desktop_ui">Desktop:</strong> Customized Modern UI</li>
+                            <li><strong data-i18n="dl_base">Base:</strong> Debian</li>
+                        </ul>
+                        
+                        <a href="https://drive.google.com/file/d/1_zgDGZuDH_RRc556Eu0OIUA7BIYg3499/view?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary btn-block">
+                            <span data-i18n="dl_btn_arm64">Download from Google Drive (ARM64)</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                            </svg>
+                        </a>
+                        <p class="download-hint"><span data-i18n="dl_hint_arm64">Local download test link: </span><a href="rockos-arm64.iso" class="local-link">rockos-arm64.iso</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Source Section -->
+        <section id="open-source" class="opensource-section">
+            <div class="container">
+                <div class="opensource-box">
+                    <div class="opensource-icon-container">
+                        <svg class="opensource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 18l6-6-6-6M8 6L2 12l6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="opensource-content">
+                        <span class="badge">Open Source</span>
+                        <h2 data-i18n="os_title">ROCKos Development & Source Codes</h2>
+                        <p data-i18n="os_desc">ROCKos is built on the principles of transparency. All customization scripts, build files, configurations, and developer resources used in creating the distribution are shared as open source. Explore our Google Drive folder to see behind the scenes of ROCKos.</p>
+                        <a href="https://drive.google.com/drive/folders/1wRJqG1ehxSXbhG_JVaGIWgtBuVnZ05zi?usp=drive_link" target="_blank" rel="noopener" class="btn btn-secondary">
+                            <span data-i18n="os_btn">Inspect Source Files (Google Drive)</span>
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
+                    <p class="section-description" data-i18n="faq_desc">Find quick answers to common questions about ROCKos distribution and installation.</p>
+                </div>
+                <div class="faq-accordion">
+                    <details class="faq-item">
+                        <summary class="faq-question" data-i18n="faq_1_q">What is ROCKos based on?</summary>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_1_a">ROCKos is offered in two specialized builds: the x64 edition is based on the stable Ubuntu LTS release, while the ARM64 edition is built on Debian for maximum efficiency and lightweight performance.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question" data-i18n="faq_2_q">Is ROCKos free to use?</summary>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_2_a">Yes, ROCKos is fully free and open-source. All configuration scripts, custom builds, and resources are publicly shared under open-source licenses.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question" data-i18n="faq_3_q">Can I run ROCKos in virtual machines?</summary>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_3_a">Yes! ROCKos builds are specifically optimized to run in virtual machines (like UTM, VMware, or QEMU), providing a smooth and fast desktop experience.</p>
+                        </div>
+                    </details>
+                    <details class="faq-item">
+                        <summary class="faq-question" data-i18n="faq_4_q">How do I update ROCKos?</summary>
+                        <div class="faq-answer">
+                            <p data-i18n="faq_4_a">ROCKos uses standard Linux package management. You can update your system anytime by opening your terminal and running sudo apt update && sudo apt upgrade.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disclaimer Section -->
+        <section id="disclaimer" class="disclaimer-section">
+            <div class="container">
+                <div class="disclaimer-box">
+                    <div class="disclaimer-icon-container">
+                        <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div class="disclaimer-content">
+                        <h3 data-i18n="disc_title">Important Disclaimer & Legal Notice</h3>
+                        <p data-i18n="disc_p1">ROCKos is an independent developer project. It is built on top of the Ubuntu Linux distribution for x64 architecture and Debian Linux for ARM64 architecture. However, the project has no direct partnership, official affiliation, or sponsorship agreement with Canonical Ltd., Ubuntu developers, or the Debian Project.</p>
+                        <p data-i18n="disc_p2">ROCKos is provided to users "as is". The development team accepts no legal liability for any data loss, hardware failure, or system errors that may occur during the installation, use, or execution of the software. Users are strongly advised to back up their data before installing the operating system on their physical disks or to test it in virtual machines initially.</p>
+                        <p data-i18n="disc_p3">All third-party software and libraries pre-installed on the system are subject to their own open-source licenses. By downloading the ROCKos project, you agree to these terms and potential risks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-text">ROCK<span class="logo-accent">os</span></span>
+                <p data-i18n="footer_brand">An independent, modern operating system project based on Ubuntu (x64) and Debian (ARM64).</p>
+            </div>
+            <div class="footer-links">
+                <p data-i18n="footer_copy">© 2026 ROCKos Project. All rights reserved.</p>
+                <p data-i18n="footer_trademarks">Ubuntu is a registered trademark of Canonical Ltd. Debian is a registered trademark of SPI Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL WINDOWS -->
+    <div id="modal-login" class="modal-overlay" style="display:none;">
+        <div class="modal-card">
+            <button class="modal-close-btn">&times;</button>
+            <h3 data-i18n="login_modal_title">Welcome Back</h3>
+            <p class="modal-desc" data-i18n="login_modal_subtitle">Log in to your ROCKos Community Account</p>
+            
+            <form id="form-login" class="modal-form">
+                <div class="form-group">
+                    <label data-i18n="username_label">Username</label>
+                    <input type="text" id="login-username" required data-i18n="login_username_ph" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password_label">Password</label>
+                    <input type="password" id="login-password" required data-i18n="login_password_ph" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="login_btn">Login</button>
+            </form>
+
+            <div class="modal-footer-link">
+                <span id="link-switch-register" data-i18n="need_account">Don't have an account? Register</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-register" class="modal-overlay" style="display:none;">
+        <div class="modal-card">
+            <button class="modal-close-btn">&times;</button>
+            <h3 data-i18n="register_modal_title">Join Community</h3>
+            <p class="modal-desc" data-i18n="register_modal_subtitle">Create a new ROCKos account to post & level up</p>
+            
+            <form id="form-register" class="modal-form">
+                <div class="form-group">
+                    <label data-i18n="username_label">Username</label>
+                    <input type="text" id="register-username" required data-i18n="reg_username_ph" placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password_label">Password</label>
+                    <input type="password" id="register-password" required data-i18n="reg_password_ph" placeholder="Choose a password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="register_btn">Create Account</button>
+            </form>
+
+            <div class="modal-footer-link">
+                <span id="link-switch-login" data-i18n="already_account">Already have an account? Login</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-admin-panel" class="modal-overlay" style="display:none;">
+        <div class="modal-card modal-xl">
+            <button class="modal-close-btn">&times;</button>
+            <h3 data-i18n="admin_panel_title">Admin Control Panel</h3>
+            <p class="modal-desc" data-i18n="admin_panel_desc">Manage user roles, promote/demote ranks, and moderate community posts.</p>
+            
+            <div class="table-wrapper">
+                <table class="admin-user-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="user_list_col_user">User</th>
+                            <th data-i18n="user_list_col_level">Level / XP</th>
+                            <th data-i18n="user_list_col_role">Current Rank</th>
+                            <th data-i18n="user_list_col_actions">Change Rank</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-user-list-body">
+                        <!-- Dynamically filled by app.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application JS -->
+    <script src="app.js"></script>
+</body>
+</html>
