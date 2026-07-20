@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROCKos Community Forum & Discussions</title>
+    
+    <meta name="description" content="Official ROCKos Linux Community Forum. Ask questions, share ideas, and level up your rank by contributing.">
+    <meta name="keywords" content="ROCKos forum, linux forum, ubuntu community, debian forum, rockos support">
+    
+    <meta name="color-scheme" content="light dark">
+    <script>
+        {
+            const savedTheme = localStorage.getItem("color-scheme");
+            if (savedTheme === "light" || savedTheme === "dark") {
+                document.querySelector('meta[name="color-scheme"]').content = savedTheme;
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+        }
+    </script>
+    <link rel="alternate" type="application/rss+xml" title="ROCKos Updates Feed" href="feed.xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="translations.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+<body class="forum-page-body">
+
+    <!-- 2-Tier Full-Width Header / Navigation -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container header-container-top">
+                <a href="index.html" class="logo-area" aria-label="ROCKos Home">
+                    <div class="logo-fallback-wrapper">
+                        <img src="logo.png" alt="ROCKos Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                        <span class="logo-text-icon" style="display:none;">🪨</span>
+                    </div>
+                    <span class="logo-text">ROCK<span class="logo-accent">os</span></span>
+                </a>
+
+                <div class="header-actions">
+                    <!-- Language Toggle -->
+                    <button id="lang-toggle" class="lang-toggle-btn" title="Switch Language / Dil Değiştir">
+                        <span class="lang-icon">🌐</span>
+                        <span id="lang-text" class="lang-text">TR</span>
+                    </button>
+
+                    <!-- RSS Button -->
+                    <a href="feed.xml" target="_blank" class="rss-link-btn" title="RSS Feed" aria-label="ROCKos RSS Updates Feed">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 11a9 9 0 0 1 9 9"></path>
+                            <path d="M4 4a16 16 0 0 1 16 16"></path>
+                            <circle cx="5" cy="19" r="1"></circle>
+                        </svg>
+                    </a>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme" title="Light/Dark Theme">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Auth Buttons & User Profile Area -->
+                    <div id="auth-buttons-area" class="auth-buttons-wrapper">
+                        <button id="btn-open-login" class="btn btn-secondary btn-sm" data-i18n="nav_login">Login</button>
+                        <button id="btn-open-register" class="btn btn-primary btn-sm" data-i18n="nav_register">Register</button>
+                    </div>
+
+                    <div id="user-profile-badge" class="user-badge-container" style="display:none;">
+                        <div class="user-info">
+                            <span id="user-badge-name" class="user-name">User</span>
+                            <span id="user-badge-level" class="user-level-tag">Lvl 1</span>
+                            <span id="user-badge-role" class="user-role-tag member">MEMBER</span>
+                        </div>
+                        <button id="btn-admin-panel" class="btn btn-warning btn-sm" style="display:none;" data-i18n="nav_admin_panel">Admin Panel</button>
+                        <button id="btn-logout" class="btn btn-secondary btn-sm" data-i18n="nav_logout">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-bottom">
+            <div class="container header-container-bottom">
+                <nav class="nav-menu" aria-label="Main Menu">
+                    <a href="index.html" class="nav-link">🏠 Home</a>
+                    <a href="index.html#features" class="nav-link" data-i18n="nav_features">Features</a>
+                    <a href="index.html#requirements" class="nav-link" data-i18n="nav_requirements">Requirements</a>
+                    <a href="index.html#apps" class="nav-link" data-i18n="nav_apps">Apps</a>
+                    <a href="index.html#download" class="nav-link" data-i18n="nav_download">Download</a>
+                    <a href="forum.html" class="nav-link active nav-highlight" data-i18n="nav_forum">Forum & Community</a>
+                    <a href="https://rockosweb.vercel.app" target="_blank" rel="noopener" class="nav-link" data-i18n="nav_try_web">Try on Web</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Standalone Dedicated Forum Page -->
+    <main class="main-content-spaced">
+        <section class="forum-hero-section">
+            <div class="container">
+                <div class="forum-hero-box">
+                    <h1 class="forum-main-title" data-i18n="forum_title">Community Forum & Discussions</h1>
+                    <p class="forum-main-desc" data-i18n="forum_desc">Ask questions, share feedback, and level up your rank by contributing to the ROCKos community.</p>
+                </div>
+
+                <div class="forum-controls">
+                    <div class="forum-filters">
+                        <button class="forum-filter-btn active" data-category="all" data-i18n="forum_filter_all">All Categories</button>
+                        <button class="forum-filter-btn" data-category="general" data-i18n="forum_filter_general">General</button>
+                        <button class="forum-filter-btn" data-category="support" data-i18n="forum_filter_support">Support & Help</button>
+                        <button class="forum-filter-btn" data-category="ideas" data-i18n="forum_filter_ideas">Ideas & Requests</button>
+                        <button class="forum-filter-btn" data-category="announcements" data-i18n="forum_filter_announcements">Announcements</button>
+                    </div>
+                    <button id="btn-new-thread" class="btn btn-primary btn-lg" data-i18n="forum_btn_new_thread">+ Create New Topic</button>
+                </div>
+
+                <!-- Forum Threads Container (100% Empty for real user posts!) -->
+                <div id="forum-threads-list" class="forum-threads-list">
+                    <!-- Dynamically rendered by app.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-text">ROCK<span class="logo-accent">os</span></span>
+                <p data-i18n="footer_brand">An independent, modern operating system project based on Ubuntu (x64) and Debian (ARM64).</p>
+            </div>
+            <div class="footer-links">
+                <p data-i18n="footer_copy">© 2026 ROCKos Project. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL WINDOWS -->
+    <div id="modal-login" class="modal-overlay" style="display:none;">
+        <div class="modal-card">
+            <button class="modal-close-btn">&times;</button>
+            <h3 data-i18n="login_modal_title">Welcome Back</h3>
+            <p class="modal-desc" data-i18n="login_modal_subtitle">Log in to your ROCKos Community Account</p>
+            
+            <form id="form-login" class="modal-form">
+                <div class="form-group">
+                    <label data-i18n="username_label">Username</label>
+                    <input type="text" id="login-username" required data-i18n="login_username_ph" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password_label">Password</label>
+                    <input type="password" id="login-password" required data-i18n="login_password_ph" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="login_btn">Login</button>
+            </form>
+
+            <div class="modal-footer-link">
+                <span id="link-switch-register" data-i18n="need_account">Don't have an account? Register</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-register" class="modal-overlay" style="display:none;">
+        <div class="modal-card">
+            <button class="modal-close-btn">&times;</button>
+            <h3 data-i18n="register_modal_title">Join Community</h3>
+            <p class="modal-desc" data-i18n="register_modal_subtitle">Create a new ROCKos account to post & level up</p>
+            
+            <form id="form-register" class="modal-form">
+                <div class="form-group">
+                    <label data-i18n="username_label">Username</label>
+                    <input type="text" id="register-username" required data-i18n="reg_username_ph" placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password_label">Password</label>
+                    <input type="password" id="register-password" required data-i18n="reg_password_ph" placeholder="Choose a password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="register_btn">Create Account</button>
+            </form>
+
+            <div class="modal-footer-link">
+                <span id="link-switch-login" data-i18n="already_account">Already have an account? Login</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-new-thread" class="modal-overlay" style="display:none;">
+        <div class="modal-card modal-lg">
+            <button class="modal-close-btn">&times;</button>
+            <h3 data-i18n="new_thread_title">Start a New Discussion</h3>
+            
+            <form id="form-new-thread" class="modal-form">
+                <div class="form-group">
+                    <label data-i18n="thread_title_label">Topic Title</label>
+                    <input type="text" id="thread-title-input" required placeholder="What's on your mind?">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="thread_category_label">Category</label>
+                    <select id="thread-category-input" required>
+                        <option value="general" data-i18n="forum_filter_general">General</option>
+                        <option value="support" data-i18n="forum_filter_support">Support & Help</option>
+                        <option value="ideas" data-i18n="forum_filter_ideas">Ideas & Requests</option>
+                        <option value="announcements" data-i18n="forum_filter_announcements">Announcements</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="thread_content_label">Content / Message</label>
+                    <textarea id="thread-content-input" rows="5" required placeholder="Describe your question or idea in detail..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" data-i18n="thread_submit_btn">Publish Topic (+20 XP)</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-thread-detail" class="modal-overlay" style="display:none;">
+        <div class="modal-card modal-lg">
+            <button class="modal-close-btn">&times;</button>
+            <div id="thread-detail-container">
+                <!-- Dynamically filled by app.js -->
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-admin-panel" class="modal-overlay" style="display:none;">
+        <div class="modal-card modal-xl">
+            <button class="modal-close-btn">&times;</button>
+            <h3 data-i18n="admin_panel_title">Admin Control Panel</h3>
+            <p class="modal-desc" data-i18n="admin_panel_desc">Manage user roles, promote/demote ranks, and moderate community posts.</p>
+            
+            <div class="table-wrapper">
+                <table class="admin-user-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="user_list_col_user">User</th>
+                            <th data-i18n="user_list_col_level">Level / XP</th>
+                            <th data-i18n="user_list_col_role">Current Rank</th>
+                            <th data-i18n="user_list_col_actions">Change Rank</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-user-list-body">
+                        <!-- Dynamically filled by app.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
