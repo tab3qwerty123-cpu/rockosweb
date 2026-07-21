@@ -1,8 +1,8 @@
 {
-  "version": "1.2",
+  "version": "1.3",
   "codename": "Tuff",
-  "release_date": "2026-07-20",
-  "iso_url_amd64": "https://drive.google.com/file/d/1S5uDkYMIZ9sbo6XbPkaaAWAAToSmMHqS/view?usp=drive_link",
-  "iso_url_arm64": "https://drive.google.com/file/d/1_zgDGZuDH_RRc556Eu0OIUA7BIYg3499/view?usp=sharing",
-  "changelog": "ROCKos v1.2 Tuff Release - 10 Wallpapers, Silent OTA, Cyan Theme, Driver GUI"
+  "release_date": "2026-07-21",
+  "iso_url_amd64": "https://drive.google.com/file/d/1TH9iLe_Kmwylk-Il3jmD-_4Ro8cLf6Hy/view?usp=sharing",
+  "iso_url_arm64": "https://drive.google.com/file/d/1_jy17H68ASr1bnSldNHZq99ZFUL28t5x/view?usp=sharing",
+  "changelog": "ROCKos v1.3 Release"
 }
