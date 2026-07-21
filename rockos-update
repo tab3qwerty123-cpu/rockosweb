@@ -1,0 +1,33 @@
+#!/bin/bash
+echo "=== ROCKos Silent OTA Update Checker ==="
+echo "Checking official repository (tab3qwerty123-cpu/rockosweb)..."
+
+VERSION_JSON=$(curl -sSL --max-time 5 https://raw.githubusercontent.com/tab3qwerty123-cpu/rockosweb/main/version.json || echo "")
+REMOTE_VER=$(echo "$VERSION_JSON" | grep -o '"version": "[^"]*"' | cut -d'"' -f4 || echo "1.3")
+
+ARCH=$(uname -m)
+if [ "$ARCH" = "x86_64" ]; then
+    ISO_URL=$(echo "$VERSION_JSON" | grep -o '"iso_url_amd64": "[^"]*"' | cut -d'"' -f4 || echo "")
+else
+    ISO_URL=$(echo "$VERSION_JSON" | grep -o '"iso_url_arm64": "[^"]*"' | cut -d'"' -f4 || echo "")
+fi
+
+echo "Latest Version Available: ROCKos $REMOTE_VER"
+
+if [ "$1" = "--apply" ]; then
+    if [ -z "$ISO_URL" ]; then
+        echo "Error: Could not retrieve ISO URL from version.json"
+        exit 1
+    fi
+    echo "Downloading new ROCKos $REMOTE_VER ISO from Google Drive..."
+    mkdir -p /tmp/rockos_update
+    FILE_ID=$(echo "$ISO_URL" | sed -n 's/.*\/d\/\([^/]*\).*/\1/p')
+    if [ -n "$FILE_ID" ]; then
+        curl -c /tmp/cookies.txt -sL "https://drive.google.com/uc?export=download&id=${FILE_ID}" > /dev/null
+        CONFIRM=$(grep -o 'confirm=[^&]*' /tmp/cookies.txt | cut -d'=' -f2)
+        curl -Lb /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=${CONFIRM}&id=${FILE_ID}" -o /tmp/rockos_update/new.iso
+    else
+        curl -sSL "$ISO_URL" -o /tmp/rockos_update/new.iso
+    fi
+    echo "ROCKos $REMOTE_VER ISO downloaded successfully to /tmp/rockos_update/new.iso"
+fi
